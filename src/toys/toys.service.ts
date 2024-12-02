@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { CreateToyDto } from './dto/create-toy.dto';
 import { UpdateToyDto } from './dto/update-toy.dto';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class ToysService {
+
+  constructor(
+    private  readonly prisma: PrismaService
+  ) {}
+
   create(createToyDto: CreateToyDto) {
-    return 'This action adds a new toy';
+    return this.prisma.jatek.create({
+      data: createToyDto
+    });
   }
 
   findAll() {
-    return `This action returns all toys`;
+    return this.prisma.jatek.findMany({});
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} toy`;
+    return this.prisma.jatek.findMany({
+      where: {id: id}
+    });
+
   }
 
   update(id: number, updateToyDto: UpdateToyDto) {
-    return `This action updates a #${id} toy`;
+    return this.prisma.jatek.update({
+      where: {id},
+      data: updateToyDto
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} toy`;
+    return this.prisma.jatek.delete({
+      where: {id: id}
+    });
   }
 }
