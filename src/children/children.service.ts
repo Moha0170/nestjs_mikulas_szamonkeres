@@ -11,7 +11,9 @@ export class ChildrenService {
   ) {}
 
   create(createChildDto: CreateChildDto) {
-    data: createChildDto;
+    return this.prisma.children.create({
+      data: createChildDto,
+    })
   }
 
   findAll() {
@@ -25,7 +27,10 @@ export class ChildrenService {
   }
 
   update(id: number, updateChildDto: UpdateChildDto) {
-    return `This action updates a #${id} child`;
+    return this.prisma.children.update({
+      where: {id},
+      data: updateChildDto
+    });
   }
 
   remove(id: number) {

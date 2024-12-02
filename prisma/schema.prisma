@@ -17,13 +17,27 @@ datasource db {
 model Jatek {
   id Int @id @default(autoincrement())
   name String
-  material String
+  material Material
   weight Int
 }
 
 model Children {
   id Int @id @default(autoincrement())
   name String
-  adress String
+  country String
+  city String
+  zipCode Int
+  streetName String
+  streetType String
+  houseNumber Int
+  floor Int
+  apartmant Int
   wasGood Boolean
+}
+
+enum Material {
+  wood
+  metal
+  plastic
+  other
 }
