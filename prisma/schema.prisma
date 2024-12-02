@@ -12,3 +12,18 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+
+model Jatek {
+  id Int @id @default(autoincrement())
+  name String
+  material String
+  weight Int
+}
+
+model Children {
+  id Int @id @default(autoincrement())
+  name String
+  adress String
+  wasGood Boolean
+}
