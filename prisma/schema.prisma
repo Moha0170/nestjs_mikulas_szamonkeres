@@ -19,6 +19,8 @@ model Jatek {
   name String
   material Material
   weight Int
+
+  giftList giftList[]
 }
 
 model Children {
@@ -33,6 +35,17 @@ model Children {
   floor Int
   apartmant Int
   wasGood Boolean
+
+  giftList giftList[]
+}
+
+model giftList {
+  // id Int @id @default(autoincrement())
+  @@unique([toyId,childrenId])
+  toyId Int
+  childrenId Int
+  toys Jatek @relation(fields: [toyId], references: [id])
+  children Children @relation(fields: [childrenId], references: [id])
 }
 
 enum Material {

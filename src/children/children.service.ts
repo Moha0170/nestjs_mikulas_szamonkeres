@@ -22,7 +22,18 @@ export class ChildrenService {
 
   findOne(id: number) {
     return this.prisma.children.findMany({
-      where: {id: id}
+      where: {id: id},
+      include: {
+        giftList:{
+          select: {
+            toys:{
+              select:{
+                name: true
+              }
+            }
+          }
+        }
+      }
     });
   }
 
@@ -36,6 +47,18 @@ export class ChildrenService {
   remove(id: number) {
     return this.prisma.children.delete({
       where: {id: id}
+    });
+  }
+
+  put(id: number, toyId: number) {
+    return this.prisma.giftList.create({
+      data: {childrenId: id, toyId: toyId}
+    })
+  }
+
+  removeGiftList(id: number, toyId: number) {
+    return this.prisma.giftList.deleteMany({
+      where: {childrenId: id, toyId: toyId}
     });
   }
 }
